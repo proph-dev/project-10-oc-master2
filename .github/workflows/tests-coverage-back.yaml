@@ -3,7 +3,8 @@ name: Tests Coverage
 on:
   push:
     branches: ["main"]
-
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build-backend:
@@ -18,3 +19,17 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Run Maven tests and generate coverage report
+        run: mvn clean test jacoco:report
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: back/target/site/jacoco
