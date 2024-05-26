@@ -1,4 +1,4 @@
-name: SonarQube Analysis
+name: SonarCloud Analysis
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  sonarqube:
+  sonarcloud:
     runs-on: ubuntu-latest
     defaults: 
       run:
@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: SonarQube Scan
+      - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
