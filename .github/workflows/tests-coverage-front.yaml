@@ -1,4 +1,4 @@
-name: Tests Coverage Backend
+name: Tests Coverage Frontend
 
 on:
   push:
