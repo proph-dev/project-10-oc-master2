@@ -29,6 +29,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: front/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/project-10-front:latest
