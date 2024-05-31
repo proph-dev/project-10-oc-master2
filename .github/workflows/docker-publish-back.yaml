@@ -28,7 +28,7 @@ jobs:
       - name: Build and push Docker image for backend
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: back/Dockerfile
+          context: ./back
+          file: ./back/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/project-10-back:latest
