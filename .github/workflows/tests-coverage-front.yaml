@@ -1,4 +1,4 @@
-name: SonarCloud Analysis Frontend
+name: Tests Coverage Backend
 
 on:
   push:
