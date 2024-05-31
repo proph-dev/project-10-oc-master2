@@ -1,4 +1,4 @@
-name: Tests Coverage Frontend
+name: SonarCloud Analysis Frontend
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build-frontend:
+  sonarcloud-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,19 +18,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm install
-      - name: Run tests and generate coverage report
-        run: npm test -- --code-coverage
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: front/coverage
+      - name: SonarCloud Scan Frontend
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx sonarqube-scanner -Dsonar.projectKey=proph-dev_project-10-oc-master2-front
